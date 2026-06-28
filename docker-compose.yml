@@ -1,0 +1,43 @@
+services:
+  web:
+    build: .
+    image: tripsplit-backend:local
+    container_name: tripsplit-web
+    command: gunicorn tripsplit.wsgi:application --bind 0.0.0.0:8000
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgres://tripsplit:tripsplit@db:5432/tripsplit
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  db:
+    image: postgres:16-alpine
+    container_name: tripsplit-db
+    environment:
+      POSTGRES_DB: tripsplit
+      POSTGRES_USER: tripsplit
+      POSTGRES_PASSWORD: tripsplit
+    ports:
+      - "5432:5432"
+    volumes:
+      - tripsplit_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tripsplit -d tripsplit"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: tripsplit-redis
+    ports:
+      - "6379:6379"
+
+volumes:
+  tripsplit_postgres_data:
