@@ -21,6 +21,7 @@ from common.views import healthz, readyz
 
 urlpatterns = [
     path('api/auth/', include('accounts.urls')),
+    path('api/', include('trips.urls')),
     path('healthz', healthz, name='healthz'),
     path('readyz', readyz, name='readyz'),
     path('admin/', admin.site.urls),
