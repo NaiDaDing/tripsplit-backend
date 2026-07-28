@@ -1,0 +1,44 @@
+output "ecr_repository_url" {
+  description = "ECR repository URL for the backend image."
+  value       = aws_ecr_repository.backend.repository_url
+}
+
+output "ecr_repository_arn" {
+  description = "ECR repository ARN."
+  value       = aws_ecr_repository.backend.arn
+}
+
+output "ecs_log_group_name" {
+  description = "CloudWatch log group used by ECS backend tasks."
+  value       = aws_cloudwatch_log_group.backend.name
+}
+
+output "alb_security_group_id" {
+  description = "Security group ID for the TripSplit ALB."
+  value       = aws_security_group.alb.id
+}
+
+output "backend_security_group_id" {
+  description = "Security group ID for the TripSplit backend ECS tasks."
+  value       = aws_security_group.backend.id
+}
+
+output "backend_target_group_arn" {
+  description = "Target group ARN for the TripSplit backend service."
+  value       = aws_lb_target_group.backend.arn
+}
+
+output "ecs_cluster_name" {
+  description = "ECS cluster name for TripSplit."
+  value       = aws_ecs_cluster.main.name
+}
+
+output "alb_dns_name" {
+  description = "DNS name for the optional TripSplit ALB when enabled."
+  value       = var.enable_alb ? aws_lb.backend[0].dns_name : null
+}
+
+output "alb_listener_arn" {
+  description = "HTTP listener ARN for the optional TripSplit ALB when enabled."
+  value       = var.enable_alb ? aws_lb_listener.http[0].arn : null
+}
