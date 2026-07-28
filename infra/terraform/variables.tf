@@ -45,3 +45,9 @@ variable "backend_health_check_path" {
   type        = string
   default     = "/healthz"
 }
+
+variable "ecs_cluster_name" {
+  description = "Name of the TripSplit ECS cluster."
+  type        = string
+  default     = "tripsplit-cluster"
+}

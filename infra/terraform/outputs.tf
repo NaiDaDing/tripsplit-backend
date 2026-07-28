@@ -27,3 +27,8 @@ output "backend_target_group_arn" {
   description = "Target group ARN for the TripSplit backend service."
   value       = aws_lb_target_group.backend.arn
 }
+
+output "ecs_cluster_name" {
+  description = "ECS cluster name for TripSplit."
+  value       = aws_ecs_cluster.main.name
+}

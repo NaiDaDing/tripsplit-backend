@@ -76,3 +76,12 @@ resource "aws_lb_target_group" "backend" {
     ManagedBy = "Terraform"
   }
 }
+
+resource "aws_ecs_cluster" "main" {
+  name = var.ecs_cluster_name
+
+  tags = {
+    Project   = var.project_name
+    ManagedBy = "Terraform"
+  }
+}
