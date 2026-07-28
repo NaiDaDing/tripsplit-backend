@@ -85,3 +85,43 @@ resource "aws_ecs_cluster" "main" {
     ManagedBy = "Terraform"
   }
 }
+
+resource "aws_ecs_service" "backend" {
+  name            = var.ecs_service_name
+  cluster         = aws_ecs_cluster.main.id
+  task_definition = "tripsplit-backend"
+  desired_count   = 0
+  launch_type     = "FARGATE"
+
+  enable_ecs_managed_tags = true
+
+  deployment_circuit_breaker {
+    enable   = true
+    rollback = true
+  }
+
+  network_configuration {
+    subnets          = var.public_subnet_ids
+    security_groups  = [aws_security_group.backend.id]
+    assign_public_ip = true
+  }
+
+  load_balancer {
+    target_group_arn = aws_lb_target_group.backend.arn
+    container_name   = "tripsplit-backend"
+    container_port   = var.backend_container_port
+  }
+
+  lifecycle {
+    ignore_changes = [
+      desired_count,
+      task_definition,
+      load_balancer,
+    ]
+  }
+
+  tags = {
+    Project   = var.project_name
+    ManagedBy = "Terraform"
+  }
+}

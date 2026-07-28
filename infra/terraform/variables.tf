@@ -51,3 +51,19 @@ variable "ecs_cluster_name" {
   type        = string
   default     = "tripsplit-cluster"
 }
+
+variable "ecs_service_name" {
+  description = "Name of the TripSplit ECS service."
+  type        = string
+  default     = "tripsplit-backend-service-qzrpnmt5"
+}
+
+variable "public_subnet_ids" {
+  description = "Public subnet IDs used by the ECS service."
+  type        = list(string)
+  default = [
+    "subnet-02a3b0fc1884863f6",
+    "subnet-0bc74c9d98a2fbefe",
+    "subnet-0ea3d53c06a8c00e7",
+  ]
+}
