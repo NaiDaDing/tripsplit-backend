@@ -21,3 +21,33 @@ resource "aws_cloudwatch_log_group" "backend" {
     ManagedBy = "Terraform"
   }
 }
+
+resource "aws_security_group" "alb" {
+  name        = "tripsplit-alb-sg"
+  description = "Allow HTTP access to TripSplit ALB"
+  vpc_id      = var.vpc_id
+
+  tags = {
+    Project   = var.project_name
+    ManagedBy = "Terraform"
+  }
+
+  lifecycle {
+    ignore_changes = [ingress, egress]
+  }
+}
+
+resource "aws_security_group" "backend" {
+  name        = "tripsplit-backend-sg"
+  description = "Allow HTTP access to TripSplit backend task"
+  vpc_id      = var.vpc_id
+
+  tags = {
+    Project   = var.project_name
+    ManagedBy = "Terraform"
+  }
+
+  lifecycle {
+    ignore_changes = [ingress, egress]
+  }
+}

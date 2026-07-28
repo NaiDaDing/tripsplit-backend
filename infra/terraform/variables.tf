@@ -27,3 +27,9 @@ variable "ecs_log_group_name" {
   type        = string
   default     = "/ecs/tripsplit-backend"
 }
+
+variable "vpc_id" {
+  description = "VPC ID for TripSplit AWS networking resources."
+  type        = string
+  default     = "vpc-0ab2969739373e6eb"
+}
