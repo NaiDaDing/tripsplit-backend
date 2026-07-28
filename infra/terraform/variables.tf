@@ -67,3 +67,14 @@ variable "public_subnet_ids" {
     "subnet-0ea3d53c06a8c00e7",
   ]
 }
+variable "enable_alb" {
+  description = "Whether to create the optional TripSplit ALB and listener. Disabled by default to avoid ongoing cost."
+  type        = bool
+  default     = false
+}
+
+variable "alb_name" {
+  description = "Name of the optional TripSplit application load balancer."
+  type        = string
+  default     = "tripsplit-alb"
+}

@@ -32,3 +32,13 @@ output "ecs_cluster_name" {
   description = "ECS cluster name for TripSplit."
   value       = aws_ecs_cluster.main.name
 }
+
+output "alb_dns_name" {
+  description = "DNS name for the optional TripSplit ALB when enabled."
+  value       = var.enable_alb ? aws_lb.backend[0].dns_name : null
+}
+
+output "alb_listener_arn" {
+  description = "HTTP listener ARN for the optional TripSplit ALB when enabled."
+  value       = var.enable_alb ? aws_lb_listener.http[0].arn : null
+}
