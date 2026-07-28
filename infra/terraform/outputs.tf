@@ -22,3 +22,8 @@ output "backend_security_group_id" {
   description = "Security group ID for the TripSplit backend ECS tasks."
   value       = aws_security_group.backend.id
 }
+
+output "backend_target_group_arn" {
+  description = "Target group ARN for the TripSplit backend service."
+  value       = aws_lb_target_group.backend.arn
+}

@@ -33,3 +33,15 @@ variable "vpc_id" {
   type        = string
   default     = "vpc-0ab2969739373e6eb"
 }
+
+variable "backend_container_port" {
+  description = "Port exposed by the TripSplit backend container."
+  type        = number
+  default     = 8000
+}
+
+variable "backend_health_check_path" {
+  description = "Health check path for the TripSplit backend target group."
+  type        = string
+  default     = "/healthz"
+}

@@ -51,3 +51,28 @@ resource "aws_security_group" "backend" {
     ignore_changes = [ingress, egress]
   }
 }
+
+resource "aws_lb_target_group" "backend" {
+  name        = "tripsplit-backend-tg"
+  port        = var.backend_container_port
+  protocol    = "HTTP"
+  vpc_id      = var.vpc_id
+  target_type = "ip"
+
+  health_check {
+    enabled             = true
+    path                = var.backend_health_check_path
+    matcher             = "200"
+    protocol            = "HTTP"
+    port                = "traffic-port"
+    healthy_threshold   = 5
+    unhealthy_threshold = 2
+    interval            = 30
+    timeout             = 5
+  }
+
+  tags = {
+    Project   = var.project_name
+    ManagedBy = "Terraform"
+  }
+}
