@@ -6,7 +6,7 @@ from rest_framework.response import Response
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def healthz(request):
-    return Response({'status': 'ok'})
+    return Response({'status': 'ok', 'message': 'Hello CI/CD'})
 
 
 @api_view(['GET'])

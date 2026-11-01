@@ -51,7 +51,7 @@ jobs:
         run: python manage.py check
 
       - name: Run tests
-        run: python manage.py test accounts trips expenses
+        run: python manage.py test accounts trips expenses common
 
       - name: Run ruff lint
         run: ruff check .
